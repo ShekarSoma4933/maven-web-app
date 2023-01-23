@@ -30,21 +30,21 @@
 	</properties>
 
 
-	<!--This is group repo with both remote and proxy repos  mapped-->
+	<!--This is group repo with both remote and proxy repos  mapped
 	<repositories>
 		<repository>
 			<id>nexus</id>
 			<url>http://143.198.43.144:8081/repository/flipkart-group-repo/</url>
 		</repository>
-	</repositories>
+	</repositories>-->
 
 	<dependencies>
-		<!--remote repository war file-->
+		<!--remote repository war file
 		<dependency>
 			<groupId>com.mt</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.0.0</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.json</groupId>

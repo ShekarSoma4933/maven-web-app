@@ -1,10 +1,10 @@
 pipeline {
   agent any
-  environment{
+  /*environment{
      //global environment variables
      //NEW_VERSION='1.2.0'
      //SERVER_CREDENTIALS=credentials('')
-  }
+  }*/
   tools{
       maven 'maven-3.6'
   }

@@ -37,8 +37,8 @@ pipeline {
       }
       stage('deploy'){
         steps{
-           withCredentials([usernamePassword(credentials: 'docker-hub-credentials',usernameVariable: USER,passwordVariable: PASS)]){
-           }
+           /*withCredentials([usernamePassword(credentials: 'docker-hub-credentials',usernameVariable: USER,passwordVariable: PASS)]){
+           }*/
 
            echo "this is deploy stage ${params.VERSION}"
         }

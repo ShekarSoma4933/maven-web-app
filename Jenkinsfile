@@ -1,3 +1,4 @@
+def gv
 pipeline {
   agent any
   /*environment{
@@ -15,11 +16,21 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
   }
   stages {
-      stage('build') {
+      stage('init') {
          steps {
-            echo "this is build stage"
+            script{
+               gv = load "script.groovy"
+            }
          }
       }
+      stage('build') {
+               steps {
+                  script{
+                     gv.buildApp()
+                  }
+
+               }
+            }
       stage('test') {
         when{
            expression{
@@ -27,20 +38,25 @@ pipeline {
            }
         }
         steps {
-           echo "this is test stage"
+            script{
+              gv.testStage()
+            }
         }
       }
       stage('push') {
         steps {
-           echo "this is push stage"
+           script{
+             gv.pushStage()
+           }
         }
       }
       stage('deploy'){
         steps{
            /*withCredentials([usernamePassword(credentials: 'docker-hub-credentials',usernameVariable: USER,passwordVariable: PASS)]){
            }*/
-
-           echo "this is deploy stage ${params.VERSION}"
+            script{
+              gv.deployStage()
+            }
         }
       }
   }

@@ -1,17 +1,19 @@
-def buildApp(){
+def buildJar(){
     echo "this is build stage"
+    sh "mvn package"
 }
 
-def testStage(){
-    echo "this is test stage"
-}
-
-def pushStage(){
+def buildAndPushImage(){
     echo "this is push stage"
+    withCredentials([usernamePassword('credentialsId':'nexus-repo-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
+        sh "docker build -t 143.198.43.144:8083/maven-web-app:2.1"
+        sh "echo ${PASS} | docker login -u ${USER} --pasword-std-in 143.198.43.144:8083"
+        sh "docker push 143.198.43.144:8083/maven-web-app:2.1"
+    }
 }
 
-def deployStage(){
-    echo "this is deploy stage ${params.VERSION}"
+def deployJar(){
+    echo "Deploying the Jar to server"
 }
 
 return this

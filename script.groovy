@@ -13,3 +13,5 @@ def pushStage(){
 def deployStage(){
     echo "this is deploy stage ${params.VERSION}"
 }
+
+return this

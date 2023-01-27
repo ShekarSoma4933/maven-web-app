@@ -25,7 +25,7 @@ pipeline {
       stage('Build and Push Image') {
         steps {
             script{
-              buildImage()
+              buildImage '143.198.43.144:8083/maven-web-app:2.2'
             }
         }
       }

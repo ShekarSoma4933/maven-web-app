@@ -1,5 +1,11 @@
 #!/usr/bin/env groovy
-@Library('jenkins-shared-library')
+//@Library('jenkins-shared-library') //use this when global setting is defined
+library identifier: 'jenkins-shared-library@master' , retriever: modernSCM(
+        [$class: 'GitSCMSource',
+         remote: 'https://github.com/ShekarSoma4933/jenkins-shared-library.git',
+         credentialsId: 'git_hub_credentials'
+        ]
+)
 def gv
 
 pipeline {
@@ -25,7 +31,7 @@ pipeline {
       stage('Build and Push Image') {
         steps {
             script{
-              buildImage '143.198.43.144:8083/maven-web-app:2.2'
+              buildImage '143.198.43.144:8083/maven-web-app:2.3'
             }
         }
       }

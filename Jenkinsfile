@@ -12,13 +12,13 @@ pipeline {
             }
          }
       }
-      stage('Build Version') {
+      /*stage('Build Version') {
                      steps {
                         script{
                            gv.buildVersion()
                         }
                      }
-                  }
+                  }*/
       stage('Build Jar') {
                steps {
                   script{
@@ -40,7 +40,7 @@ pipeline {
             }
         }
       }
-      stage('commit git version to repo'){
+      /*stage('commit git version to repo'){
         steps{
             script{
                 withCredentials([usernamePassword('credentialsId': 'git_hub_credentials', 'usernameVariable': 'USER', 'passwordVariable': 'PASS')]){
@@ -59,6 +59,6 @@ pipeline {
             }
         }
 
-      }
+      }*/
   }
 }

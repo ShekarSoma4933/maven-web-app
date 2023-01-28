@@ -1,14 +1,13 @@
-/*def buildVersion(){
+def buildVersion(){
     echo "this method creates a new version"
     sh 'mvn build-helper:parse-version versions:set \
      -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit'
     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
     def version = matcher[0][1]
-    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+    env.IMAGE_NAME = "$version"
     echo "$IMAGE_NAME"
 
-}*/
-IMAGE_NAME = "2.1"
+}
 
 def buildJar(){
     echo "this is build stage"
@@ -32,6 +31,19 @@ def deployJar(){
             sh "ssh -o StrictHostKeyChecking=no ec2-user@18.234.80.161 ${container}"
         }
     }
+}
+
+def commitVersionToGitRepo(){
+    withCredentials([usernamePassword('credentialsId': 'git_hub_credentials', 'usernameVariable': 'USER', 'passwordVariable': 'PASS')]){
+        sh 'git config user.email "jenkins@example.com"'
+        sh 'git config user.name "jenkins"'
+
+        sh "git remote set-url origin https://${USER}:${PASS}@github.com/ShekarSoma4933/maven-web-app.git"
+        sh "git add ."
+        sh 'git commit -m "ci: version bump"'
+        sh 'git push origin HEAD:master'
+    }
+
 }
 
 return this

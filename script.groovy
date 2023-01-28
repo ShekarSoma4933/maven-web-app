@@ -22,17 +22,6 @@ def buildAndPushImage(){
         sh "docker push 143.198.43.144:8083/maven-web-app:${IMAGE_NAME}"
     }
 }
-
-def deployJar(){
-    echo "Deploying the Jar to server"
-    container = "docker run -d -p 9090:9090 143.198.43.144:8083/maven-web-app:${IMAGE_NAME}"
-    withCredentials([usernamePassword('credentialsId':'nexus-repo-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
-        sshagent(['ec2-user-docker']) {
-            sh "ssh -o StrictHostKeyChecking=no ec2-user@18.234.80.161 ${container}"
-        }
-    }
-}
-
 def commitVersionToGitRepo(){
     withCredentials([usernamePassword('credentialsId': 'git_hub_credentials', 'usernameVariable': 'USER', 'passwordVariable': 'PASS')]){
         sh 'git config user.email "jenkins@example.com"'
@@ -45,5 +34,17 @@ def commitVersionToGitRepo(){
     }
 
 }
+
+def deployJar(){
+    echo "Deploying the Jar to server"
+    container = "docker run -d -p 9090:9090 143.198.43.144:8083/maven-web-app:${IMAGE_NAME}"
+    withCredentials([usernamePassword('credentialsId':'nexus-repo-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
+        sshagent(['ec2-user-docker']) {
+            sh "ssh -o StrictHostKeyChecking=no ec2-user@18.234.80.161 ${container}"
+        }
+    }
+}
+
+
 
 return this

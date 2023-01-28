@@ -26,19 +26,19 @@ pipeline {
                   }
                }
             }
+      stage('Build and Push Image') {
+              steps {
+                  script{
+                    gv.buildAndPushImage()
+                  }
+              }
+            }
       stage('commit version to git'){
            steps{
                 script{
                 gv.commitVersionToGitRepo()
                 }
            }
-      }
-      stage('Build and Push Image') {
-        steps {
-            script{
-              gv.buildAndPushImage()
-            }
-        }
       }
       stage('deploy'){
         steps{

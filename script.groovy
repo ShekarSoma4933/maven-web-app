@@ -1,4 +1,4 @@
-def buildVersion(){
+/*def buildVersion(){
     echo "this method creates a new version"
     sh 'mvn build-helper:parse-version versions:set \
      -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit'
@@ -7,8 +7,8 @@ def buildVersion(){
     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
     echo "$IMAGE_NAME"
 
-}
-
+}*/
+IMAGE_NAME = "2.1"
 
 def buildJar(){
     echo "this is build stage"
